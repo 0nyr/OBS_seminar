@@ -1,0 +1,22 @@
+{
+  "name": "obs_seminar",
+  "version": "1.0.0",
+  "description": "OBS seminar test for geolocated tags.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0nyr/OBS_seminar.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/0nyr/OBS_seminar/issues"
+  },
+  "homepage": "https://github.com/0nyr/OBS_seminar#readme",
+  "dependencies": {
+    "axios": "^1.2.2"
+  }
+}
