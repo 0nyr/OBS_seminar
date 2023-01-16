@@ -96,6 +96,7 @@ function updateGridAndPlayer(x, y) {
 }
 
 async function nextMove() {
+    document.getElementById("next-move").blur();
     let data = await fetchAllData();
     let considered_tag;
 

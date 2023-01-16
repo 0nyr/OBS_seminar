@@ -7,6 +7,19 @@
 </head>
 <body>
     <h1>Tic Tac Toe</h1>
+    <div id="game-score">
+        <div>
+            <img src="../ressources/circle.svg" alt="circle"/>
+            <span class="player-name">Joueur 1</span>
+            <span id="score-p1" class="score">0</span>
+        </div>
+        <span class="separator">-</span>
+        <div>
+            <span id="score-p2" class="score">0</span>
+            <span class="player-name">Joueur 2</span>
+            <img src="../ressources/mark.svg" alt="mark"/>
+        </div>
+    </div>
     <div id="game">
         <div class="line">
             <div class="cell"><span id="00"></span></div>
@@ -24,7 +37,12 @@
             <div class="cell"><span id="22"></span></div>
         </div>
     </div>
-    <button id="next-move" onclick="nextMove()">Coup suivant</button>
+    <div id="game-player">C'est au tour de <span id="player-name" class="orange">nom de joueur</span></div>
+    <div>
+        <button id="new-game" onclick="nextMove()">Nouvelle partie</button>
+        <button id="next-move" onclick="nextMove()">Coup suivant</button>
+    </div>
+    <button id="vs-ai" onclick="toggle_ai()">Jouer contre une intelligence artificielle</button>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js" integrity="sha512-L4lHq2JI/GoKsERT8KYa72iCwfSrKYWEyaBxzJeeITM9Lub5vlTj8tufqYk056exhjo2QDEipJrg6zen/DDtoQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="index.js"></script>
