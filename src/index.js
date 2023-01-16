@@ -14,6 +14,8 @@ let current_player;
 let game_over = false;
 let winner;
 let active_ai = false;
+let gen_id_prev_preceding = "00";
+
 
 function toggle_ai() {
     if (active_ai) {
@@ -50,16 +52,17 @@ async function background_update_tag() {
 
     // get first tag with non null zone
     for (let i = 0; i < data["tags"].length; i++) {
-        if (data["tags"][i]["locationZoneNames"] != null) {
+        if (data["tags"][i]["locationZoneNames"] != null && data["tags"][i]["locationZoneNames"].length != 0) {
             considered_tag = data["tags"][i];
             break;
         }
     }
 
-    if (considered_tag == null) {
+    if (considered_tag == null ) {
         console.log("Error: no tag with non null zone");
         return;
     }
+    console.log(considered_tag["locationZoneNames"]);
 
     // update tictactoe grid
     let x;
@@ -92,17 +95,27 @@ async function background_update_tag() {
         x = 2;
         y = 2;
     } else {
-        console.log("Error: invalid zone");
+        console.log("Error: invalid zone: " + considered_tag["locationZoneNames"][0]);
         return;
     }
 
     // update display grid with dummy
-    gen_id = "" + i + j;
-    if (tictactoe_grid[i][j] == first_player) {
-        document.getElementById(gen_id).className = "circle-preview";
+    
+    gen_id = "" + x + y;
+
+    // reset previous preview
+    let all_classes = document.getElementById(gen_id_prev_preceding).className;
+    all_classes = all_classes.replace('circle-preview', '');
+    all_classes = all_classes.replace('cross-preview', '');
+    document.getElementById(gen_id_prev_preceding).className = all_classes;
+
+    if (tictactoe_grid[x][y] == first_player) {
+        all_classes = document.getElementById(gen_id).className += " circle-preview";
     } else {
-        document.getElementById(gen_id).className = "cross-preview";
+        document.getElementById(gen_id).className += " cross-preview";
     }
+
+    gen_id_prev_preceding = gen_id
 }
 
 async function main() {
@@ -177,6 +190,7 @@ function previousGridState() {
 }
 
 async function nextMove() {
+    document.getElementById("next-move").blur();
 
     // check if AI is playing
     if (current_player == second_player && active_ai) {
@@ -189,7 +203,7 @@ async function nextMove() {
 
     // get first tag with non null zone
     for (let i = 0; i < data["tags"].length; i++) {
-        if (data["tags"][i]["locationZoneNames"] != null) {
+        if (data["tags"][i]["locationZoneNames"] != null && data["tags"][i]["locationZoneNames"].length != 0) {
             considered_tag = data["tags"][i];
             break;
         }
@@ -199,6 +213,7 @@ async function nextMove() {
         console.log("Error: no tag with non null zone");
         return;
     }
+    console.log(considered_tag);
 
     // update tictactoe grid
     let x;
@@ -231,7 +246,7 @@ async function nextMove() {
         x = 2;
         y = 2;
     } else {
-        console.log("Error: invalid zone");
+        console.log("Error: invalid zone: " + considered_tag["locationZoneNames"][0]);
         return;
     }
 
@@ -353,6 +368,8 @@ function AIMove() {
 }
 
 function resetGame() {
+    document.getElementById("next-move").blur();
+    
     main();
     displayGrid();
 }
@@ -377,4 +394,7 @@ function displayGrid() {
 // init
 main();
 
-setInterval(background_update_tag, 100);
+setInterval(async () => {
+    await background_update_tag();
+}, 1000);
+

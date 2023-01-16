@@ -78,7 +78,7 @@ h1 {
 }
 
 .circle {
-    background: url(../ressources/circle.svg);
+    background: url(../ressources/circle.svg) !important;
     width: 90%;
     height: 90%;
 }
@@ -90,12 +90,12 @@ h1 {
 }
 
 .cross {
-    background: url(../ressources/mark.svg);
+    background: url(../ressources/mark.svg) !important;
     width: 100%;
     height: 100%;
 }
 
-.cros-preview {
+.cross-preview {
     background: url(../ressources/mark-preview.svg);
     width: 100%;
     height: 100%;
